@@ -1,75 +1,108 @@
-# TurtleBot3 Sensor Extension
+# Robot Sensor Extension
 
 ## Summary
 
-TurtleBot3にカメラ、LiDAR、超音波センサなどを追加し、MuJoCoモデル・PDU定義・制御プログラムを連携させるためのユースケースです。
+既存のロボットに新しいセンサを追加し、シミュレータと制御プログラムを連携させたい人向けのユースケースです。
 
-センサ追加時の設定手順を整理し、箱庭による拡張方法を分かりやすくすることを目的としています。
+箱庭では、センサモデル、PDU定義、Endpoint実装、制御プログラムを組み合わせることで、実機と同じ構成を仮想環境上で再現できます。
+
+本ユースケースでは、超音波センサ、カメラ、LiDARなどの追加方法を整理し、ロボット機能拡張の標準パターンを示します。
 
 ## Persona
 
-* TurtleBot3利用者
+* ロボット開発者
 * ROS2利用者
-* MuJoCoベースのロボット開発者
-* センサ拡張を試したい学生・研究者
+* MuJoCo利用者
+* 教育・研究用途でロボットを拡張したい人
 
 ## Problem
 
-ロボットにセンサを追加すると、
+ロボットにセンサを追加する際には、
 
-* MJCF修正
-* PDU定義追加
-* endpoint設定
-* 制御コード修正
+* ロボットモデルの修正
+* センサ設定
+* PDU定義
+* Endpoint実装
+* 制御プログラム修正
 
 が必要になります。
 
-それぞれの関係が見えにくく、どこを変更すればよいか分かりづらいことがあります。
+これらの対応関係が見えにくいため、拡張作業の難易度が高くなります。
 
 ## Goal
 
-* センサ追加手順を整理する
-* MJCFとPDUの対応関係を見える化する
-* asset manifestから構成を確認できるようにする
-* 最小サンプルを提供する
+* ロボットへのセンサ追加手順を整理する
+* モデルとPDUの対応関係を見える化する
+* 制御プログラムとの接続方法を標準化する
+* センサ拡張の再利用可能なパターンを提供する
 
 ## Why Hakoniwa
 
-箱庭ではセンサ入出力をPDUとして扱うため、物理シミュレータと制御プログラムを疎結合に保てます。
+箱庭では、センサ・アクチュエータをPDUとして抽象化します。
 
-また、asset manifestによってロボット構成を可視化できるため、拡張ポイントを理解しやすくなります。
+そのため、物理シミュレータと制御プログラムを疎結合に保ちながら機能拡張できます。
+
+また、Asset Manifestを利用することで、ロボット構成全体を整理しながら開発できます。
 
 ## Components
 
 | Component              | Role          |
 | ---------------------- | ------------- |
-| hakoniwa-mujoco-robots | TurtleBot3モデル |
+| hakoniwa-mujoco-robots | ロボットモデルとセンサ実装 |
 | hakoniwa-core-pro      | PDU通信・時刻同期    |
 | hakoniwa-pdu-python    | Python制御プログラム |
 | Asset Manifest         | 構成管理          |
 | PDU Definitions        | データ型定義        |
 
+## Existing Tutorials
+
+### Ultrasonic Sensor
+
+既存ロボットへ超音波センサを追加する例。
+
+対象:
+
+* MJCFモデル拡張
+* PDU定義追加
+* Endpoint実装
+* Python制御プログラム連携
+
+### Camera Sensor
+
+既存ロボットへカメラセンサを追加する例。
+
+対象:
+
+* カメラ設定
+* PDU画像転送
+* 制御プログラム連携
+
+### Future Examples
+
+* LiDAR
+* GPS
+* IMU
+* 深度カメラ
+
 ## Demo
 
-候補:
-
-* TurtleBot3カメラ追加
-* 超音波センサ追加
+* TurtleBot3 Ultrasonic Sensor
+* TurtleBot3 Camera Sensor
 * Asset Manifestによる構成確認
 
 ## Missing Pieces
 
-* センサ追加チュートリアル
-* テンプレートJSON
-* Manifest Inspector
+* センサ追加テンプレート
+* Asset Manifest Inspector
 * PDU Adapterサンプル
+* センサ追加ウィザード
 
 ## Collaboration
 
-* センサ追加サンプル作成
 * ロボット教材整備
-* ROS2接続例
-* センサ構成テンプレート整備
+* センサ追加サンプル拡充
+* ROS2連携事例
+* 教育向けコンテンツ整備
 
 ## Status
 
